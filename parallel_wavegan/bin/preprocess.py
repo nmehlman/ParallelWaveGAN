@@ -22,6 +22,7 @@ from parallel_wavegan.datasets import AudioSCPDataset
 from parallel_wavegan.utils import write_hdf5
 
 import torch
+import torchaudio
 
 def logmelfilterbank(
     audio,
