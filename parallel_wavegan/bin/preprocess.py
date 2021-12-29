@@ -56,6 +56,10 @@ def logmelfilterbank(
         ndarray: Log Mel filterbank feature (#frames, num_mels).
 
     """
+
+    fmin = 0 if fmin is None else fmin
+    fmax = sampling_rate / 2 if fmax is None else fmax
+
     # get mel spectrogram
     mel_spc = torchaudio.transforms.MelSpectrogram(
         sample_rate = sampling_rate,
