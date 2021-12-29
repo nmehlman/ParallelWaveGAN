@@ -38,7 +38,7 @@ class ParallelWaveGANGenerator(torch.nn.Module):
         bias=True,
         use_weight_norm=True,
         use_causal_conv=False,
-        upsample_conditional_features=True,
+        upsample_conditional_features=False,
         upsample_net="ConvInUpsampleNetwork",
         upsample_params={"upsample_scales": [4, 4, 4, 4]},
     ):
