@@ -60,12 +60,7 @@ def logmelfilterbank(
     fmin = 0 if fmin is None else fmin
     fmax = sampling_rate / 2 if fmax is None else fmax
 
-    win_fcn = lambda length: torch.hann_window(length, 
-    periodic=True, 
-    dtype=None, 
-    layout=torch.strided, 
-    device='cuda', 
-    requires_grad=True)
+    torch.set_default_tensor_type('torch.cuda.FloatTensor')
 
     # get mel spectrogram
     mel_spc = torchaudio.transforms.MelSpectrogram(
@@ -73,7 +68,6 @@ def logmelfilterbank(
         n_fft = fft_size,
         win_length = win_length,
         hop_length = hop_size,
-        window_fn = win_fcn,
         f_min = fmin,
         f_max = fmax,
         n_mels = num_mels
