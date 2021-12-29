@@ -21,6 +21,7 @@ from parallel_wavegan.datasets import AudioDataset
 from parallel_wavegan.datasets import AudioSCPDataset
 from parallel_wavegan.utils import write_hdf5
 
+import torch
 
 def logmelfilterbank(
     audio,
@@ -54,29 +55,25 @@ def logmelfilterbank(
         ndarray: Log Mel filterbank feature (#frames, num_mels).
 
     """
-    # get amplitude spectrogram
-    x_stft = librosa.stft(
-        audio,
-        n_fft=fft_size,
-        hop_length=hop_size,
-        win_length=win_length,
-        window=window,
-        pad_mode="reflect",
+    # get mel spectrogram
+    mel_spc = torchaudio.transforms.MelSpectrogram(
+        sample_rate = sampling_rate,
+        n_fft = fft_size,
+        win_length = win_length,
+        hop_length = hop_size,
+        f_min = fmin,
+        f_max = fmax,
+        n_mels = num_mels
     )
-    spc = np.abs(x_stft).T  # (#frames, #bins)
-
-    # get mel basis
-    fmin = 0 if fmin is None else fmin
-    fmax = sampling_rate / 2 if fmax is None else fmax
-    mel_basis = librosa.filters.mel(sampling_rate, fft_size, num_mels, fmin, fmax)
-    mel = np.maximum(eps, np.dot(spc, mel_basis.T))
+    
+    mel = mel_spc(audio)
 
     if log_base is None:
-        return np.log(mel)
+        return torch.log(mel)
     elif log_base == 10.0:
-        return np.log10(mel)
+        return torch.log10(mel)
     elif log_base == 2.0:
-        return np.log2(mel)
+        return torch.log2(mel)
     else:
         raise ValueError(f"{log_base} is not supported.")
 
