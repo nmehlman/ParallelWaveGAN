@@ -38,7 +38,7 @@ class ParallelWaveGANGenerator(torch.nn.Module):
         bias=True,
         use_weight_norm=True,
         use_causal_conv=False,
-        upsample_conditional_features=False,
+        upsample_conditional_features=True,
         upsample_net="ConvInUpsampleNetwork",
         upsample_params={"upsample_scales": [4, 4, 4, 4]},
     ):
@@ -154,9 +154,9 @@ class ParallelWaveGANGenerator(torch.nn.Module):
 
         """
         # perform upsampling
-        if c is not None and self.upsample_net is not None:
-            c = self.upsample_net(c)
-            assert c.size(-1) == x.size(-1)
+        #if c is not None and self.upsample_net is not None:
+            #c = self.upsample_net(c)
+            #assert c.size(-1) == x.size(-1)
 
         # encode to hidden representation
         x = self.first_conv(x)
