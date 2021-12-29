@@ -73,7 +73,7 @@ def logmelfilterbank(
         n_fft = fft_size,
         win_length = win_length,
         hop_length = hop_size,
-        window = win_fcn,
+        window_fn = win_fcn,
         f_min = fmin,
         f_max = fmax,
         n_mels = num_mels
