@@ -155,8 +155,6 @@ class ParallelWaveGANGenerator(torch.nn.Module):
         """
         # perform upsampling
         if c is not None and self.upsample_net is not None:
-            import pdb
-            pdb.set_trace()
             c = self.upsample_net(c)
             assert c.size(-1) == x.size(-1)
 
