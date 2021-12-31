@@ -156,6 +156,7 @@ class ParallelWaveGANGenerator(torch.nn.Module):
         # perform upsampling
         if c is not None and self.upsample_net is not None:
             c = self.upsample_net(c)
+            print(c.size(), x.size())
             assert c.size(-1) == x.size(-1)
 
         # encode to hidden representation
