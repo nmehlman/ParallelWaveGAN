@@ -40,7 +40,7 @@ class ParallelWaveGANGenerator(torch.nn.Module):
         use_causal_conv=False,
         upsample_conditional_features=True,
         upsample_net="ConvInUpsampleNetwork",
-        upsample_params={"upsample_scales": [4, 4, 4, 4]},
+        upsample_params={"upsample_scales": [2, 2, 2, 2]},
     ):
         """Initialize Parallel WaveGAN Generator module.
 
