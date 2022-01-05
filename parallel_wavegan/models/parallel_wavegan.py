@@ -164,8 +164,6 @@ class ParallelWaveGANGenerator(torch.nn.Module):
         skips = 0
         for f in self.conv_layers:
             x, h = f(x, c)
-            import pdb 
-            pdb.set_trace()
             skips += h
         skips *= math.sqrt(1.0 / len(self.conv_layers))
 
