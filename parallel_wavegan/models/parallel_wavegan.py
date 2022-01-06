@@ -165,6 +165,7 @@ class ParallelWaveGANGenerator(torch.nn.Module):
         for f in self.conv_layers:
             x, h = f(x, c)
             skips += h
+        torch.cuda.empty_cache()
         skips *= math.sqrt(1.0 / len(self.conv_layers))
 
         # apply final layers
