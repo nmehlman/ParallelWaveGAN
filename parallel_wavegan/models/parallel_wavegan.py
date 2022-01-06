@@ -164,8 +164,15 @@ class ParallelWaveGANGenerator(torch.nn.Module):
         skips = 0
         for f in self.conv_layers:
             x, h = f(x, c)
+            from pynvml import *
+            nvmlInit()
+            h = nvmlDeviceGetHandleByIndex(0)
+            info = nvmlDeviceGetMemoryInfo(h)
+            print(f'total    : {info.total}')
+            print(f'free     : {info.free}')
+            print(f'used     : {info.used}')
             skips += h
-        torch.cuda.empty_cache()
+
         skips *= math.sqrt(1.0 / len(self.conv_layers))
 
         # apply final layers
