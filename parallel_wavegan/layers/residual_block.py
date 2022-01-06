@@ -12,6 +12,8 @@ import math
 
 import torch
 import torch.nn.functional as F
+from memory_profiler import profile
+
 
 
 class Conv1d(torch.nn.Conv1d):
@@ -97,6 +99,7 @@ class WaveNetResidualBlock(torch.nn.Module):
         self.conv1x1_out = Conv1d1x1(gate_out_channels, residual_channels, bias=bias)
         self.conv1x1_skip = Conv1d1x1(gate_out_channels, skip_channels, bias=bias)
 
+    @profile
     def forward(self, x, c):
         """Calculate forward propagation.
 
