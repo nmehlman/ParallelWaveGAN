@@ -133,8 +133,6 @@ class WaveNetResidualBlock(torch.nn.Module):
         s = self.conv1x1_skip(x)
 
         # for residual connection
-        import pdb
-        pdb.set_trace()
         x = (self.conv1x1_out(x) + residual) * math.sqrt(0.5)
 
         return x, s

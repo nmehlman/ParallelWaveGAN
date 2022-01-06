@@ -21,6 +21,8 @@ from parallel_wavegan.utils import read_hdf5
 from pynvml import *
 nvmlInit()
 
+from memory_profiler import profile
+
 class ParallelWaveGANGenerator(torch.nn.Module):
     """Parallel WaveGAN Generator module."""
 
@@ -144,6 +146,7 @@ class ParallelWaveGANGenerator(torch.nn.Module):
         if use_weight_norm:
             self.apply_weight_norm()
 
+    @profile
     def forward(self, x, c):
         """Calculate forward propagation.
 
