@@ -483,7 +483,9 @@ class ResidualParallelWaveGANDiscriminator(torch.nn.Module):
         x = self.first_conv(x)
 
         skips = 0
+        import pdb
         for f in self.conv_layers:
+            pdb.set_trace()
             x, h = f(x, None)
             skips += h
         skips *= math.sqrt(1.0 / len(self.conv_layers))
