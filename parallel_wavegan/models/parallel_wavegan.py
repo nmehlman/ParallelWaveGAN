@@ -18,6 +18,10 @@ from parallel_wavegan.layers import WaveNetResidualBlock as ResidualBlock
 from parallel_wavegan import models
 from parallel_wavegan.utils import read_hdf5
 
+from pynvml import *
+nvmlInit()
+h = nvmlDeviceGetHandleByIndex(0)
+
 
 class ParallelWaveGANGenerator(torch.nn.Module):
     """Parallel WaveGAN Generator module."""
@@ -164,9 +168,6 @@ class ParallelWaveGANGenerator(torch.nn.Module):
         skips = 0
         for f in self.conv_layers:
             x, h = f(x, c)
-            from pynvml import *
-            nvmlInit()
-            h = nvmlDeviceGetHandleByIndex(0)
             info = nvmlDeviceGetMemoryInfo(h)
             print(f'total    : {info.total}')
             print(f'free     : {info.free}')
