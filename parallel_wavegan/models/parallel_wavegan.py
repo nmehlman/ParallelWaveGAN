@@ -166,8 +166,8 @@ class ParallelWaveGANGenerator(torch.nn.Module):
         skips = 0
         for f in self.conv_layers:
             x, h = f(x, c)
-            h = nvmlDeviceGetHandleByIndex(0)
-            info = nvmlDeviceGetMemoryInfo(h)
+            dev = nvmlDeviceGetHandleByIndex(0)
+            info = nvmlDeviceGetMemoryInfo(dev)
             print(f'total    : {info.total}')
             print(f'free     : {info.free}')
             print(f'used     : {info.used}')
